@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/size_config.dart';
+
+import 'otp_form.dart';
 
 class Body extends StatelessWidget {
   const Body({Key key}) : super(key: key);
@@ -12,18 +15,31 @@ class Body extends StatelessWidget {
       child: Padding(
         padding:
             EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-        child: Column(
-          children: [
-            Text(
-              "OTP Verification",
-              style: headingStyle,
-            ),
-            Text(
-              "We sent your code to +1 898 860 ***",
-            ),
-            buildTimer(),
-            OtpForm(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: SizeConfig.screenHeight * 0.05,),
+              Text(
+                "OTP Verification",
+                style: headingStyle,
+              ),
+              Text(
+                "We sent your code to +1 898 860 ***",
+              ),
+              buildTimer(),
+              SizedBox(height: SizeConfig.screenHeight * 0.15,),
+              OtpForm(),
+              SizedBox(height: SizeConfig.screenHeight * 0.1,),
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  "Resend OTP Code", style: TextStyle(
+                  decoration: TextDecoration.underline,
+                ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -44,70 +60,6 @@ class Body extends StatelessWidget {
           onEnd: () {},
         ),
       ],
-    );
-  }
-}
-
-class OtpForm extends StatefulWidget {
-  const OtpForm({Key key}) : super(key: key);
-
-  @override
-  _OtpFormState createState() => _OtpFormState();
-}
-
-class _OtpFormState extends State<OtpForm> {
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: getProportionateScreenWidth(60),
-            child: TextFormField(
-              obscureText: true,
-              keyboardType: TextInputType.number,
-              style: TextStyle(fontSize: 24),
-              textAlign: TextAlign.center,
-              decoration: otpInputDecoration,
-              onChanged: (value) {},
-            ),
-          ),
-          SizedBox(
-            width: getProportionateScreenWidth(60),
-            child: TextFormField(
-              obscureText: true,
-              keyboardType: TextInputType.number,
-              style: TextStyle(fontSize: 24),
-              textAlign: TextAlign.center,
-              decoration: otpInputDecoration,
-              onChanged: (value) {},
-            ),
-          ),
-          SizedBox(
-            width: getProportionateScreenWidth(60),
-            child: TextFormField(
-              obscureText: true,
-              keyboardType: TextInputType.number,
-              style: TextStyle(fontSize: 24),
-              textAlign: TextAlign.center,
-              decoration: otpInputDecoration,
-              onChanged: (value) {},
-            ),
-          ),
-          SizedBox(
-            width: getProportionateScreenWidth(60),
-            child: TextFormField(
-              obscureText: true,
-              keyboardType: TextInputType.number,
-              style: TextStyle(fontSize: 24),
-              textAlign: TextAlign.center,
-              decoration: otpInputDecoration,
-              onChanged: (value) {},
-            ),
-          )
-        ],
-      ),
     );
   }
 }
