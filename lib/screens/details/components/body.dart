@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop_app/constants.dart';
+import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/screens/details/components/product_description.dart';
 import 'package:shop_app/screens/details/components/product_images.dart';
+import 'package:shop_app/screens/details/components/top_rounded_container.dart';
 import 'package:shop_app/size_config.dart';
+
+import 'color_dots.dart';
 
 class Body extends StatelessWidget {
   const Body({Key key, @required this.product}) : super(key: key);
@@ -11,111 +14,46 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ProductImages(product: product),
-        TopRoundedContainer(
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
-                child: Text(
-                  product.title,
-                  style: Theme.of(context).textTheme.headline6,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ProductImages(product: product),
+          TopRoundedContainer(
+            color: Colors.white,
+            child: Column(
+              children: [
+                ProductDescription(
+                  product: product,
+                  pressOnSeeMore: () {},
                 ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-                  width: getProportionateScreenWidth(64),
-                  decoration: BoxDecoration(
-                      color: product.isFavourite
-                          ? Color(0xFFFFE6E6)
-                          : Color(0xFFF5F6F9),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                      )),
-                  child: SvgPicture.asset(
-                    "assets/icons/Heart Icon_2.svg",
-                    color: product.isFavourite
-                        ? Color(0xFFFF4848)
-                        : Color(0xFFDBDEE4),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: getProportionateScreenWidth(20),
-                  right: getProportionateScreenWidth(64),
-                ),
-                child: Text(
-                  product.description,
-                  maxLines: 3,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(20),
-                  vertical: 10,
-                ),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Row(
+                TopRoundedContainer(
+                  color: Color(0xFFF6F7F9),
+                  child: Column(
                     children: [
-                      Text(
-                        "See More Detail",
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.w600,
+                      ColorDots(product: product),
+                      TopRoundedContainer(
+                        color: Colors.white,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: SizeConfig.screenWidth * 0.15,
+                            right: SizeConfig.screenWidth * 0.15,
+                            top: getProportionateScreenWidth(15),
+                            bottom: getProportionateScreenWidth(40),
+                          ),
+                          child: DefaultButton(
+                            text: "Add to Cart",
+                            press: () {},
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(Icons.arrow_forward_ios, size: 12, color: kPrimaryColor),
+                      )
                     ],
                   ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class TopRoundedContainer extends StatelessWidget {
-  const TopRoundedContainer({
-    Key key,
-    @required this.color,
-    @required this.child,
-  }) : super(key: key);
-
-  final Color color;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: getProportionateScreenWidth(20)),
-      padding: EdgeInsets.only(top: getProportionateScreenWidth(20)),
-      width: double.infinity,
-      height: 300,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
-        ),
+        ],
       ),
-      child: child,
     );
   }
 }
